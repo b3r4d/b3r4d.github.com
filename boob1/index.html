@@ -1,11 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Leave Luck 2 Heaven Presents</title>
-	</head>
-	<body>
-		<script src="js/game.js"></script>
-		<script type="text/javascript" src="js/greensock/TweenLite.js"></script>
-	</body>
+<html>
+<head>
+	<title>EaselJS: Simple SpriteSheet Example</title>
+
+	<link href="assets/demoStyles.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="js/easeljs/utils/UID.js"></script>
+	<script type="text/javascript" src="js/easeljs/geom/Matrix2D.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/DisplayObject.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/Container.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/Stage.js"></script>
+	<script type="text/javascript" src="js/easeljs/events/MouseEvent.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/Shape.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/Graphics.js"></script>
+	<script type="text/javascript" src="js/easeljs/utils/Ticker.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/SpriteSheet.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/BitmapAnimation.js"></script>
+	<script type="text/javascript" src="js/easeljs/geom/Rectangle.js"></script>
+
+	<!-- We also provide hosted minified versions of all CreateJS libraries.
+	  http://code.createjs.com -->
+
+	<script type="text/javascript">
+		
+		var bg = [];
+		
+		var fetchSheet = function ( id )
+		{
+			var sheet;
+			
+			switch ( id )
+			{
+				case "bg":
+			
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 0 ]
+				},
+					"images": ["images/background.png"],
+					"frames":
+						{
+							"height": 	800,
+							"width":	1080,
+							"regX": 0,
+							"regY": 0,
+							"count": 1
+						}
+				});
+				return sheet;	
+				
+				case "boob1":
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 4 ]
+				},
+					"images": ["images/bgBoob1.png"],
+					"frames":
+						{
+							"height": 441,
+							"width":462,
+							"regX": 0,
+							"regY": 0,
+							"count": 5
+						}
+				});
+				return sheet;	
+			}
+		}
+		
+		var addCreation = function ( id, x, y )
+		{
+			var creation = new createjs.BitmapAnimation( fetchSheet( id ) );
+			creation.x = x;
+			creation.y = y;
+
+			creation.gotoAndPlay("idle");
+
+			// Add Grant to the stage, and add it as a listener to Ticker to get updates each frame.
+			stage.addChild(creation);
+			
+			return creation;
+		}
+		
+		var stage;
+		
+		var buildBG = function () 
+		{
+			addCreation( "bg", 0, 0  );
+			
+			for ( var i = 0; i < 10; i++ )
+			{
+				bg.push( addCreation( "boob1", i * 1000, 400 * Math.random()  ) );
+			}
+			
+		}
+		
+		function init() {
+
+			// create a new stage and point it at our canvas:
+			stage = new createjs.Stage(document.getElementById("testCanvas"));
+			
+			buildBG();
+			//addCreation( "boob1", 0, 0  );
+			//addCreation( "boob1", 100, 0  );
+			//addCreation( "boob1", 300, 0  );
+
+			// Define a spritesheet. Note that this data was exported by Zoë.
+			
+			createjs.Ticker.setFPS(24);
+			createjs.Ticker.addListener(stage);
+			
+			var elem = document.getElementById("testCanvas");
+			if (elem.requestFullScreen) {
+  			elem.requestFullScreen();
+			} else if (elem.mozRequestFullScreen) {
+  			elem.mozRequestFullScreen();
+			} else if (elem.webkitRequestFullScreen) {
+  			elem.webkitRequestFullScreen();
+			
+}
+		}
+
+	</script>
+</head>
+<body style="overflow: hidden" onload="init();">
+
+	<div class="canvasHolder">
+		<canvas id="testCanvas" width="1080" height="800"></canvas>
+	</div>
+    
+</body>
 </html>
