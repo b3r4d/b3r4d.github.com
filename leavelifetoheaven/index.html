@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EaselJS: Simple SpriteSheet Example</title>
+
+	<link href="assets/demoStyles.css" rel="stylesheet" type="text/css" />
+    
+    <script type="text/javascript" src="js/greensock/TweenLite.js"></script>
+        
+
+	<script type="text/javascript" src="js/easeljs/utils/UID.js"></script>
+	<script type="text/javascript" src="js/easeljs/geom/Matrix2D.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/DisplayObject.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/Container.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/Stage.js"></script>
+	<script type="text/javascript" src="js/easeljs/events/MouseEvent.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/Shape.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/Graphics.js"></script>
+	<script type="text/javascript" src="js/easeljs/utils/Ticker.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/SpriteSheet.js"></script>
+	<script type="text/javascript" src="js/easeljs/display/BitmapAnimation.js"></script>
+	<script type="text/javascript" src="js/easeljs/geom/Rectangle.js"></script>
+
+	<!-- We also provide hosted minified versions of all CreateJS libraries.
+	  http://code.createjs.com -->
+
+	<script type="text/javascript">
+		
+		var bgSpeed = 4;
+		var bg = [];
+		var hero;
+		var cock;
+		var climax;
+		var heroPos = {};
+		
+		var target = 15000;
+		var position = 0;
+		
+		var speed = 2;
+		var excite = 5;
+		
+		var render = function () 
+		{
+		
+		position  += speed;
+			
+		TweenLite.to( hero, 	excite, { x:heroPos.x, y:heroPos.y});
+		TweenLite.to( cock, 	excite, { x:heroPos.x, y:heroPos.y});
+		
+		
+		if ( position > target - 150 ) return;	
+		
+		
+		for ( var i = 0; i < bg.length; i++ )
+		{
+			var layer = bg[ i ];
+			layer.x -= speed;
+			
+			//console.log( hitRadius( layer.x, layer.y, 100, hero.x, hero.y, 200 ) )
+			if ( hitRadius( layer.x, layer.y, 100, hero.x, hero.y, 200 ) == true )
+			{
+			layer.play();
+			}
+		}
+		
+		climax.x -= speed;
+		
+		  
+    }
+
+    var hitRadius = function (tX, tY, tHit, sX, sY, sHit ) {
+        //early returns speed it up
+		
+		//console.log( "tx " + tX + " tY " + tY + "tHit " + tHit );
+		//console.log( "sx " + sX + " sY " + sY + "sHit " + sHit );
+		
+        if (tX - tHit > sX + sHit) { return; }
+        if (tX + tHit < sX - sHit) { return; }
+        if (tY - tHit > sY + sHit) { return; }
+        if (tY + tHit < sY - sHit) { return; }
+
+        //now do the circle distance test
+        return sHit + tHit > Math.sqrt(Math.pow(Math.abs( sX - tX), 2) + Math.pow(Math.abs(sY - tY), 2));
+    }
+		
+		
+		document.onmousemove=getMouseCoordinates;
+
+		function getMouseCoordinates(event)
+		{
+		heroPos.x = event.pageX;
+		heroPos.y = event.pageY;
+		}
+
+		
+		var fetchSheet = function ( id )
+		{
+			var sheet;
+			
+			switch ( id )
+			{
+				case "cock":
+			
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 2 ]
+				},
+					"images": ["images/pennies.png"],
+					"frames":
+						{
+							"height": 	171,
+							"width":	378,
+							"regX": 0,
+							"regY": 0,
+							"count": 3
+						}
+				});
+				return sheet;	
+				
+				
+				case "hero":
+			
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 12 ]
+				},
+					"images": ["images/hero.png"],
+					"frames":
+						{
+							"height": 	171,
+							"width":	378,
+							"regX": 0,
+							"regY": 0,
+							"count": 13
+						}
+				});
+				return sheet;	
+				
+				
+				case "bg":
+			
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 0 ]
+				},
+					"images": ["images/background.png"],
+					"frames":
+						{
+							"height": 	800,
+							"width":	1080,
+							"regX": 0,
+							"regY": 0,
+							"count": 1
+						}
+				});
+				return sheet;	
+				
+				case "boob1":
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 4 ]
+				},
+					"images": ["images/bgBoob1.png"],
+					"frames":
+						{
+							"height": 441,
+							"width":462,
+							"regX": 0,
+							"regY": 0,
+							"count": 5
+						}
+				});
+				return sheet;
+				
+				case "boob2":
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 4 ]
+				},
+					"images": ["images/whiteboobs.png"],
+					"frames":
+						{
+							"height": 208.1,
+							"width":347.85,
+							"regX": 0,
+							"regY": 0,
+							"count": 5
+						}
+				});
+				return sheet;
+				
+				case "boob3":
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 4 ]
+				},
+					"images": ["images/brownboobs.png"],
+					"frames":
+						{
+							"height": 255,
+							"width":319,
+							"regX": 0,
+							"regY": 0,
+							"count": 5
+						}
+				});
+				return sheet;
+				
+				case "boob4":
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 4 ]
+				},
+					"images": ["images/sideboob.png"],
+					"frames":
+						{
+							"height": 255,
+							"width":319,
+							"regX": 0,
+							"regY": 0,
+							"count": 5
+						}
+				});
+				return sheet;
+				
+				case "climax":
+				sheet = new createjs.SpriteSheet({
+				"animations":
+				{
+					"idle": [0, 0 ]
+				},
+					"images": ["images/climax.png"],
+					"frames":
+						{
+							"height": 900,
+							"width":966,
+							"regX": 0,
+							"regY": 0,
+							"count": 1
+						}
+				});
+				return sheet;											
+			}
+		}
+		
+		var addCreation = function ( id, x, y )
+		{
+			var creation = new createjs.BitmapAnimation( fetchSheet( id ) );
+			creation.x = x;
+			creation.y = y;
+
+			creation.gotoAndPlay("idle");
+
+			// Add Grant to the stage, and add it as a listener to Ticker to get updates each frame.
+			stage.addChild(creation);
+			
+			return creation;
+		}
+		
+		var stage;
+		
+		var buildBG = function () 
+		{
+			addCreation( "bg", 0, 0  );
+			
+			var max = 100;
+			
+			for ( var i = 0; i < max; i++ )
+			{
+				buildBoobs();
+			}
+			
+			for ( var i = 0; i < bg.length; i++ )
+			{
+			var layer = bg[ i ];
+			layer.stop();
+			}
+			
+		}
+		
+		function buildBoobs ()
+		{
+			var type =  Math.ceil( Math.random() * 10 * .5 );
+			
+			switch ( type )
+			{
+				case 1:
+				bg.push( addCreation( "boob4", Math.random() * target  ,  600  ) );
+				return;
+				
+				case 2:
+				bg.push( addCreation( "boob3", Math.random() * target  ,  Math.random() * 800  ) );
+				return;
+				
+				case 3:
+				bg.push( addCreation( "boob2", Math.random() * target  ,  Math.random() * 800  ) );
+				return;
+				
+				case 4:
+				bg.push( addCreation( "boob1", Math.random() * target  ,  Math.random() * 800  ) );
+				return;
+				
+				case 5:
+				bg.push( addCreation( "boob1", Math.random() * target  ,  Math.random() * 800  ) );
+				return;
+			}
+			
+			for ( var i = 0; i < 10; i++ )
+			{
+				
+			}
+			
+		}
+		
+		function init() {
+
+			// create a new stage and point it at our canvas:
+			stage = new createjs.Stage(document.getElementById("testCanvas"));
+			
+			buildBG();
+			
+			hero = addCreation( "hero", 0, 0  );
+			cock = addCreation( "cock", 0, 0 );
+			climax = addCreation( "climax", target, 0 );
+			
+			//addCreation( "boob1", 0, 0  );
+			//addCreation( "boob1", 100, 0  );
+			//addCreation( "boob1", 300, 0  );
+
+			// Define a spritesheet. Note that this data was exported by Zoë.
+			
+			createjs.Ticker.setFPS(24);
+			createjs.Ticker.addListener(stage);
+			
+			var elem = document.getElementById("testCanvas");
+			if (elem.requestFullScreen) {
+  			elem.requestFullScreen();
+			} else if (elem.mozRequestFullScreen) {
+  			elem.mozRequestFullScreen();
+			} else if (elem.webkitRequestFullScreen) {
+  			elem.webkitRequestFullScreen();}
+		}
+		
+		// The main game loop
+		var main = function () 
+		{
+		//var now = Date.now();
+		//var delta = now - then;
+
+		//update(delta / 1000);
+		render();
+
+		//then = now;
+		};
+
+// Let's play this game!
+//reset(); should restart the game
+var then = Date.now();
+setInterval(main, 1); // Execute as fast as possible
+
+
+	</script>
+</head>
+<body style="overflow: hidden" onload="init();">
+
+	<div class="canvasHolder">
+		<canvas id="testCanvas" width="1080" height="800"></canvas>
+	</div>
+    
+</body>
+</html>
