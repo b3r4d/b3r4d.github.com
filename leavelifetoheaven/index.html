@@ -48,7 +48,13 @@
 		TweenLite.to( cock, 	excite, { x:heroPos.x, y:heroPos.y});
 		
 		
-		if ( position > target - 150 ) return;	
+		if ( position > target - 150 ) 
+		{
+			var mediaElement = document.getElementById("sfx2");
+			mediaElement.play();
+			return;	
+		}
+		
 		
 		
 		for ( var i = 0; i < bg.length; i++ )
@@ -60,6 +66,35 @@
 			if ( hitRadius( layer.x, layer.y, 100, hero.x, hero.y, 200 ) == true )
 			{
 			layer.play();
+			
+			var id;
+			var type =  Math.ceil( Math.random() * 10 * .5 );
+			
+			switch ( type )
+			{
+				case 1:
+				id = "sfx1";
+				break;
+				
+				case 2:
+				id = "sfx3";
+				break;
+				
+				case 3:
+				id = "sfx4";
+				break;
+				
+				case 4:
+				id = "sfx5";
+				break;
+				
+				case 5:
+				id = "sfx6";
+				break;
+			}
+			
+			var mediaElement = document.getElementById( id  );
+			mediaElement.play();
 			}
 		}
 		
@@ -373,6 +408,18 @@ setInterval(main, 1); // Execute as fast as possible
 	<div class="canvasHolder">
 		<canvas id="testCanvas" width="1080" height="800"></canvas>
 	</div>
+    
+    <audio id="sfx1" src="sound/arousedown4_variation.ogg" ></audio>
+    <audio id="sfx2" src="sound/victory.ogg" ></audio>
+    
+    <audio id="sfx3" src="sound/arousedown.ogg" ></audio>
+    <audio id="sfx4" src="sound/arousedown2_variation.ogg" ></audio>
+    <audio id="sfx5" src="sound/arousedown3_variation.ogg" ></audio>
+    <audio id="sfx6" src="sound/arousedown4_variation.ogg" ></audio>
+    
+    
+    
+    
     
 </body>
 </html>
