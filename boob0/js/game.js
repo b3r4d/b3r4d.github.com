@@ -29,7 +29,7 @@ var monsterImage = new Image();
 monsterImage.onload = function () {
 	monsterReady = true;
 };
-monsterImage.src = "images/monster.png";
+monsterImage.src = "images/boob/boob1.png";
 
 // Game objects
 var hero = {
@@ -87,15 +87,14 @@ var update = function (modifier) {
 	//}
 
 	// Are they touching?
-	//if (
-	//	hero.x <= (monster.x + 32)
-	//	&& monster.x <= (hero.x + 32)
-	//	&& hero.y <= (monster.y + 32)
-	//	&& monster.y <= (hero.y + 32)
-	//) {
-	//	++monstersCaught;
-	//	reset();
-	//}
+	if (
+		hero.x <= (monster.x + 32)
+		&& monster.x <= (hero.x + 32)
+		&& hero.y <= (monster.y + 32)
+		&& monster.y <= (hero.y + 32)
+	) {
+		//reset();
+	}
 };
 
 document.onmousemove=getMouseCoordinates;
@@ -119,9 +118,9 @@ var render = function () {
 		ctx.drawImage(heroImage, hero.x, hero.y);
 	}
 
-	//if (bgImage) {
-	//	ctx.drawImage(bgImage, bg.x, bg.y);
-	//}
+	if (monsterReady) {
+		ctx.drawImage(monster, bgSpeed, 0);
+	}
 
 	// Score
 	ctx.fillStyle = "rgb(25, 25, 25)";
