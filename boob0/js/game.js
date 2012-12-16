@@ -43,6 +43,8 @@ var bg = {
 
 var bgSpeed = 10;
 
+var arousal = 10000;
+
 var monster = {};
 var monstersCaught = 0;
 
@@ -107,6 +109,7 @@ TweenLite.to( hero, 	3, { x:ev.pageX, y:ev.pageY});
 var render = function () {
 	
 	bgSpeed -=1;
+	arousal -=1;
 	
 	if (bgReady) {
 		ctx.drawImage(bgImage, bgSpeed, 0);
@@ -121,11 +124,11 @@ var render = function () {
 	//}
 
 	// Score
-	ctx.fillStyle = "rgb(250, 250, 250)";
+	ctx.fillStyle = "rgb(25, 25, 25)";
 	ctx.font = "24px Helvetica";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("LeaveLuck2Heaven", 32, 32);
+	ctx.fillText( "Arousal " + arousal, 32, 32);
 };
 
 // The main game loop
