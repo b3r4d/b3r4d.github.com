@@ -28,6 +28,7 @@ var monsterReady = false;
 var monsterImage = new Image();
 monsterImage.onload = function () {
 	monsterReady = true;
+	 boobDown();
 };
 monsterImage.src = "images/monster.png";
 
@@ -45,7 +46,7 @@ var bgSpeed = 10;
 
 var arousal = 10000;
 
-var monster = {};
+var monster = { x:10, y:-100};
 var monstersCaught = 0;
 
 // Handle keyboard controls
@@ -65,9 +66,21 @@ var reset = function () {
 	hero.y = canvas.height / 2;
 
 	// Throw the monster somewhere on the screen randomly
-	monster.x = 32 + (Math.random() * (canvas.width - 64));
-	monster.y = 32 + (Math.random() * (canvas.height - 64));
+	monster.x = 500;
+	monster.y = 200;
 };
+
+function boobDown ()
+{
+	TweenLite.to( monster, 	3, { y:0, onComplete:boobUp  });
+}
+	
+
+function boobUp ()
+{
+	TweenLite.to( monster, 	3, { y:200,  onComplete:boobDown   } );
+}
+	
 
 // Update game objects
 var update = function (modifier) {
@@ -87,15 +100,15 @@ var update = function (modifier) {
 	//}
 
 	// Are they touching?
-	//if (
-	//	hero.x <= (monster.x + 32)
-	//	&& monster.x <= (hero.x + 32)
-	//	&& hero.y <= (monster.y + 32)
-	//	&& monster.y <= (hero.y + 32)
-	//) {
-	//	++monstersCaught;
+	if (
+		hero.x <= (monster.x + 32)
+		&& monster.x <= (hero.x + 32)
+		&& hero.y <= (monster.y + 32)
+		&& monster.y <= (hero.y + 32)
+	) {
+		arousal = 0;
 	//	reset();
-	//}
+	}
 };
 
 document.onmousemove=getMouseCoordinates;
@@ -110,6 +123,7 @@ var render = function () {
 	
 	bgSpeed -=1;
 	arousal -=1;
+	monster.x -=1;
 	
 	if (bgReady) {
 		ctx.drawImage(bgImage, bgSpeed, 0);
@@ -119,9 +133,9 @@ var render = function () {
 		ctx.drawImage(heroImage, hero.x, hero.y);
 	}
 
-	//if (bgImage) {
-	//	ctx.drawImage(bgImage, bg.x, bg.y);
-	//}
+	if ( monsterImage ) {
+		ctx.drawImage( monsterImage,  monster.x, monster.y);
+	}
 
 	// Score
 	ctx.fillStyle = "rgb(25, 25, 25)";
@@ -129,6 +143,16 @@ var render = function () {
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
 	ctx.fillText( "Arousal " + arousal, 32, 32);
+	
+	if (
+		hero.x <= (monster.x + 32)
+		&& monster.x <= (hero.x + 32)
+		&& hero.y <= (monster.y + 32)
+		&& monster.y <= (hero.y + 32)
+	) {
+		arousal = 0;
+	//	reset();
+	}
 };
 
 // The main game loop
