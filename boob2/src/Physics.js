@@ -156,7 +156,7 @@ ChipmunkSprite.prototype.createPhysicsSprite = function( pos ) {
 	var body = new cp.Body(1, cp.momentForBox(1, 48, 108) );
 	body.setPos( pos );
 	this.space.addBody( body );
-	var shape = new cp.BoxShape( body, 48, 108);
+	var shape = new cp.BoxShape( body, 124, 56);
 	shape.setElasticity( 0.5 );
 	shape.setFriction( 0.5 );
 	this.space.addShape( shape );
