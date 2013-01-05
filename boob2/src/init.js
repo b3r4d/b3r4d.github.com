@@ -19,7 +19,8 @@
         appFiles:[
             'src/Assets.js',
             'src/App.js',
-            'src/Physics.js'
+            'src/Physics.js',
+            'src/World.js'
         ]
     };
     window.addEventListener('DOMContentLoaded', function () {
