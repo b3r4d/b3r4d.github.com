@@ -10,6 +10,10 @@ var MyLayer = cc.Layer.extend({
         cc.log("vortex");
         var scene = new ChipmunkTestScene;
         scene.runThisTest();
+        
+       //var ctx = document.getElementById("gameCanvas");
+       // ctx.canvas.width  = window.innerWidth;
+        //ctx.canvas.height = window.innerHeight;
         //this._super();
         // var size = cc.Director.getInstance().getWinSize();
 

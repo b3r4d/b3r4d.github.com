@@ -150,6 +150,8 @@ ChipmunkSprite.prototype.initPhysics = function() {
 
 	// Gravity
 	space.gravity = cp.v( 0, -100 );
+        
+        
 };
 
 ChipmunkSprite.prototype.createPhysicsSprite = function( pos ) {
@@ -171,7 +173,7 @@ ChipmunkSprite.prototype.onEnter = function () {
 	cc.base(this, 'onEnter');
 
 	this.scheduleUpdate();
-	for(var i=0; i<1; i++) {
+	for(var i=0; i<100; i++) {
 		this.addSprite( cp.v( 666/2, 666/2) );
 	}
 
@@ -186,7 +188,7 @@ ChipmunkSprite.prototype.onEnter = function () {
 };
 
 ChipmunkSprite.prototype.update = function( delta ) {
-	this.space.step( delta );
+	this.space.step( delta );     
 };
 
 ChipmunkSprite.prototype.onMouseDown = function( event ) {
