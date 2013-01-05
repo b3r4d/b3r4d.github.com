@@ -173,7 +173,7 @@ ChipmunkSprite.prototype.onEnter = function () {
 	cc.base(this, 'onEnter');
 
 	this.scheduleUpdate();
-	for(var i=0; i<100; i++) {
+	for(var i=0; i<1; i++) {
 		this.addSprite( cp.v( 666/2, 666/2) );
 	}
 
