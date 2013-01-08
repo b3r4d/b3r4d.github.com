@@ -1,11 +1,9 @@
 //Whats a mob to a King
-//The thoughts are thinking me
-//Insteand of me thinking the thoughts
+//The thoughts are thinking them
+//Instead of them thinking the thoughts
 //Whats a King to a GOD
 //Instead of the thoughts thinking me
 //I am me thinking the thoughts
-
-
      
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
@@ -95,8 +93,7 @@ ChipmunkBaseLayer.prototype.onBackCallback = function (sender) {
 
 
 
-var ChipmunkTestScene = function() 
-{
+var ChipmunkTestScene = function() {
 	var parent = cc.base(this);
 };
 

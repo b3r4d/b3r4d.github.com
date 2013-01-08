@@ -1,8 +1,16 @@
 
 (function () {
+    var srcFolder = "src";
+    var files = [
+    'Assets.js',
+    'App.js',
+    'Physics.js',
+    'Cosmos.js',
+    'Horld.js',
+    'Course.js'
+    ];
     
-    
-     var ctx = canvas = document.getElementById('gameCanvas');
+    var ctx = canvas = document.getElementById('gameCanvas');
     ctx.width  = window.innerWidth;
     ctx.height = window.innerHeight;
     
@@ -16,15 +24,22 @@
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'libs/cocos2d/',
         //SingleEngineFile:'',
-        appFiles:[
-            'src/Assets.js',
-            'src/App.js',
-            'src/Physics.js',
-            'src/World.js'
-        ]
+        appFiles:files
     };
     window.addEventListener('DOMContentLoaded', function () {
         //first load engine file if specified
+        
+        
+        //Build File List
+        var max = files.length;
+        var fileList = [];
+        for ( var i = 0; i < max; i++)
+        {
+          fileList.push( srcFolder + "/" + files[i]);      
+        }
+        
+        c.appFiles = fileList;
+        
         var s = d.createElement('script');
         /*********Delete this section if you have packed all files into one*******/
         if (c.SingleEngineFile && !c.engineDir) {
@@ -37,8 +52,7 @@
             alert('You must specify either the single engine file OR the engine directory in "cocos2d.js"');
         }
         /*********Delete this section if you have packed all files into one*******/
-
-            //s.src = 'Packed_Release_File.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
+        //s.src = 'Packed_Release_File.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
 
         d.body.appendChild(s);
         document.ccConfig = c;

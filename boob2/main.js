@@ -26,4 +26,4 @@ var cocos2dApp = cc.Application.extend({
     }
 });
 
-var app = new cocos2dApp( App );
+var app = new cocos2dApp( Cosmos );

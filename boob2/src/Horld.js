@@ -1,9 +1,4 @@
-
-//A Scene is what the players can see at a given time, and is composed of one or more Layers. 
-//To display a specific Scene, you tell the Director (which is a singleton) to play it.
-//http://monoclestudios.com/cocos2d_whitepaper.html
-
-var MyLayer = cc.Layer.extend({
+var Horld = cc.Layer.extend({
     isMouseDown:false,
     helloLabel:null,
     circle:null,
@@ -12,9 +7,6 @@ var MyLayer = cc.Layer.extend({
     init:function () {
        
         cc.log("vortex");
-        var scene = new ChipmunkTestScene;
-        scene.runThisTest();
-        
        //var ctx = document.getElementById("gameCanvas");
        // ctx.canvas.width  = window.innerWidth;
         //ctx.canvas.height = window.innerHeight;
@@ -45,16 +37,3 @@ var MyLayer = cc.Layer.extend({
     }
 
 });
-
-
-
-var App = cc.Scene.extend({
-    onEnter:function () {
-        this._super();
-        var layer = new MyLayer();
-        this.addChild(layer);
-        layer.init();
-    }
-});
-
-
