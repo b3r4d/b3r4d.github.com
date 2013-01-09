@@ -3,7 +3,7 @@ var Cosmos = cc.Scene.extend({
         this._super();
         cc.log("Awaking Paradolia");
         
-        var course = new Course();
+        var course = new ChipmunkBaseLayer();
         this.addChild( course );
         course.init();
     }

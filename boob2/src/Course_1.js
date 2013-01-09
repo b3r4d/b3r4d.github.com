@@ -24,7 +24,7 @@ cc.inherits( ChipmunkSprite, ChipmunkBaseLayer );
 // init physics
 ChipmunkSprite.prototype.initPhysics = function() {
 	cc.log("init physics");
-        var space = this.space ;
+       
 	var staticBody = space.staticBody;
 
 	// Walls
