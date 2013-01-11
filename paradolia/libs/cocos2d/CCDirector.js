@@ -686,7 +686,7 @@ cc.Director = cc.Class.extend(/** @lends cc.Director# */{
      * @param {cc.Scene} scene
      */
     runWithScene:function (scene) {
-        cc.Assert(scene != null, "running scene should not be null");
+       cc.Assert(scene != null, "running scene should not be null");
         cc.Assert(this._runningScene == null, "_runningScene should be null");
 
         //this.addRegionToDirtyRegion(cc.rect(0, 0, cc.canvas.width, cc.canvas.height));

@@ -55,7 +55,7 @@ var cocos2dApp = cc.Application.extend({
         // create a scene. it's an autorelease object
 
         // run
-        director.runWithScene(new this.startScene());
+       // director.runWithScene(new this.startScene());
 
         return true;
     }

@@ -122,7 +122,6 @@
         document.ccConfig = c;
         s.id = 'cocos2d-html5';
         
-          window.alert("sometext");
-        //else if single file specified, load singlefile
+         //else if single file specified, load singlefile
     });
 })();

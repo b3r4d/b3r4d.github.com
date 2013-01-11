@@ -1,15 +1,39 @@
+//Whats a mob to a King
+//The thoughts are thinking them
+//Instead of them thinking the thoughts
+//Whats a King to a GOD
+//Instead of the thoughts thinking me
+//I am me thinking the thoughts
+
+   var  logo                           = "assets/logo.png";
+   var  boob1                       = "assets/boob1.png";
+   var  s_pathGrossini      = "assets/grossini.png";
+
+    var g_ressources = [
+    //image
+    {type:"image", src:logo             },
+    {type:"image", src:boob1            },
+    {type:"image", src:s_pathGrossini   }
+    //plist
+
+    //fnt
+
+    //tmx
+
+    //bgm
+   
+    //effect
+];
 
 (function () {
     var srcFolder = "src";
     var files = [
-    'Assets.js',
-    'App.js',
-    'Physics.js',
+   'Title.js',
     'Cosmos.js',
-    'Horld.js',
-    'Course.js'
+   'Creation.js'
     ];
-    
+   
+    //added this so canvas takes up the entire screen
     var ctx = canvas = document.getElementById('gameCanvas');
     ctx.width  = window.innerWidth;
     ctx.height = window.innerHeight;
@@ -28,8 +52,7 @@
     };
     window.addEventListener('DOMContentLoaded', function () {
         //first load engine file if specified
-        
-        
+       
         //Build File List
         var max = files.length;
         var fileList = [];
@@ -57,6 +80,8 @@
         d.body.appendChild(s);
         document.ccConfig = c;
         s.id = 'cocos2d-html5';
+        
+       
         //else if single file specified, load singlefile
     });
 })();
