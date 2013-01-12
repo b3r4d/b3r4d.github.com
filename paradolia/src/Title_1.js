@@ -16,7 +16,42 @@ var Title = cc.LayerGradient.extend({
         director = cc.Director.getInstance();
         winSize = director.getWinSize();
 
-        this._itemMenu = cc.Menu.create();
+        // add close menu
+      //  var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this.onCloseCallback, this);
+        //var menu = cc.Menu.create(closeItem);//pmenu is just a holder for the close button
+       // menu.setPosition(0,0);
+       // closeItem.setPosition(winSize.width - 30, winSize.height - 30);
+
+        // add menu items for tests
+        this._itemMenu = cc.Menu.create();//item menu is where all the label goes, and the one gets scrolled
+
+//        for (var i = 0, len = testNames.length; i < len; i++) {
+//            var label = cc.LabelTTF.create(testNames[i].title, "Arial", 24);
+  //          var menuItem = cc.MenuItemLabel.create(label, this.onMenuCallback, this);
+    //        this._itemMenu.addChild(menuItem, i + 10000);
+      //      menuItem.setPosition(winSize.width / 2, (winSize.height - (i + 1) * LINE_SPACE));
+
+            // enable disable
+         //   if (cc.config.platform == 'browser') {
+          //      menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
+          //  } else { /* jsb */
+         //       menuItem.setEnabled( testNames[i].platforms & PLATFORM_JSB );
+          //  }
+       // }
+
+        //this._itemMenu.setContentSize(cc.size(winSize.width, (testNames.length + 1) * LINE_SPACE));
+        //this._itemMenu.setPosition(curPos);
+       // this.addChild(this._itemMenu);
+     //  this.addChild(menu, 1);
+
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
+    //    var t = cc.config.platform;
+     //   if( t == 'browser' || t == 'mobile')  {
+     //       this.setTouchEnabled(true);
+      //  } else if( t == 'desktop' ) {
+       //     this.setMouseEnabled(true);
+       // }
     },
     onEnter:function(){
         this._super();
@@ -33,6 +68,8 @@ var Title = cc.LayerGradient.extend({
     onMenuCallback:function (sender) {
         Title.YOffset = this._itemMenu.getPosition().y;
         var idx = sender.getZOrder() - 10000;
+        // get the userdata, it's the index of the menu item clicked
+        // create the test scene and run it
         var scene = testNames[idx].testScene();
         if (scene) {
             scene.runThisTest();
@@ -78,8 +115,11 @@ Title.YOffset = 0;
 var testNames = [
     {
         title:"Level ONE",
+       // platforms: PLATFORM_ALL,
         testScene:function () {
             return new  ChipmunkTestScene();
         }
     }
+    //"UserDefaultTest",
+    //"ZwoptexTest",
 ];

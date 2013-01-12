@@ -14,72 +14,32 @@ var Cosmos = cc.Scene.extend({
         this.init();
     },
 
-    // callbacks
     onEnter:function () {
         this._super();
-       // var label = cc.LabelTTF.create("MainMenu", "Arial", 20);
-        //var menuItem = cc.MenuItemLabel.create(label, this.onMainMenuCallback, this);
-
-        //var menu = cc.Menu.create(menuItem);
-        //menu.setPosition(0,0);
-        //menuItem.setPosition(winSize.width - 50, 25);
-
-        //this.addChild(menu, 1);
     },
-    onMainMenuCallback:function () {
-       
-       cc.log( "main menu call back");
-       
-        var scene = cc.Scene.create();
-        var layer = new TestController();
-        scene.addChild(layer);
-        var transition = cc.TransitionProgressRadialCCW.create(0.5,scene);
-        director.replaceScene(transition);
-    },
-
+    
     runThisTest:function () {
         // override me
     }
 
 });
 
-//
-////
-// Base class for Chipmunk Demo
-//
-// Chipmunk Demos from Chipmunk-JS project
-// https://github.com/josephg/chipmunk-js
-//
 var ChipmunkBaseLayer = function() {
 
-	//
-	// VERY IMPORTANT
-	//
-	// Only subclasses of a native classes MUST call cc.associateWithNative
-	// Failure to do so, it will crash.
-	//
 	var parent = cc.base(this);
 	cc.associateWithNative( this, parent );
-	this.init( cc.c4b(0,0,0,255), cc.c4b(98*0.5,99*0.5,117*0.5,255) );
-
-	this.title =  "No title";
-	this.subtitle = "No Subtitle";
-
-	
-                    // Create the initial space
 	this.space = new cp.Space();
 
 	this.setupDebugNode();
 };
 
-cc.inherits(ChipmunkBaseLayer, cc.LayerGradient );
+cc.inherits(ChipmunkBaseLayer, cc.Layer );
 
 ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
-    // debug only
-	this._debugNode = cc.PhysicsDebugNode.create( this.space );
-	this._debugNode.setVisible( false );
-	this.addChild( this._debugNode );
+    this._debugNode = cc.PhysicsDebugNode.create( this.space );
+    this._debugNode.setVisible( false );
+    this.addChild( this._debugNode );
 };
 
 ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
@@ -87,32 +47,17 @@ ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
     this._debugNode.setVisible( !state );
 };
 
-//
-// Instance 'base' methods
-// XXX: Should be defined after "cc.inherits"
-//
+
 ChipmunkBaseLayer.prototype.onEnter = function() {
     cc.base(this, 'onEnter');
-	var label = cc.LabelTTF.create(this.title, "Arial", 28);
-	this.addChild(label, 1);
-	label.setPosition( cc.p(winSize.width / 2, winSize.height - 50));
-
-	if (this.subtitle !== "") {
-		var l = cc.LabelTTF.create(this.subtitle, "Thonburi", 16);
-		this.addChild(l, 1);
-		l.setPosition( cc.p(winSize.width / 2, winSize.height - 80));
-	}
-
-    
 };
 
-ChipmunkBaseLayer.prototype.onCleanup = function() {
-	// Not compulsory, but recommended: cleanup the scene
-	this.unscheduleUpdate();
+ChipmunkBaseLayer.prototype.onCleanup = function() {	
+    this.unscheduleUpdate();
 };
 
 ChipmunkBaseLayer.prototype.onRestartCallback = function (sender) {
-	this.onCleanup();
+    this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(restartChipmunkTest());
     director.replaceScene(s);
@@ -131,108 +76,6 @@ ChipmunkBaseLayer.prototype.onBackCallback = function (sender) {
     s.addChild(previousChipmunkTest());
     director.replaceScene(s);
 };
-
-//------------------------------------------------------------------
-//
-// Chipmunk + Sprite
-//
-//------------------------------------------------------------------
-var ChipmunkSprite = function() {
-
-	cc.base(this);
-
-	this.addSprite = function( pos ) {
-		var sprite =  this.createPhysicsSprite( pos );
-		this.addChild( sprite );
-	};
-
-	this.title = 'Chipmunk Sprite Test';
-	this.subtitle = 'Chipmunk + cocos2d sprites tests. Tap screen.';
-
-	this.initPhysics();
-};
-cc.inherits( ChipmunkSprite, ChipmunkBaseLayer );
-
-//
-// Instance 'base' methods
-// XXX: Should be defined after "cc.inherits"
-//
-
-// init physics
-ChipmunkSprite.prototype.initPhysics = function() {
-	var space = this.space ;
-	var staticBody = space.staticBody;
-
-	// Walls
-	var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 0 ),				// bottom
-			new cp.SegmentShape( staticBody, cp.v(0,winSize.height), cp.v(winSize.width,winSize.height), 0),	// top
-			new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 0),				// left
-			new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 0)	// right
-			];
-	for( var i=0; i < walls.length; i++ ) {
-		var shape = walls[i];
-		shape.setElasticity(1);
-		shape.setFriction(1);
-		space.addStaticShape( shape );
-	}
-
-	// Gravity
-	space.gravity = cp.v(0, -100);
-};
-
-ChipmunkSprite.prototype.createPhysicsSprite = function( pos ) {
-	var body = new cp.Body(1, cp.momentForBox(1, 48, 108) );
-	body.setPos( pos );
-	this.space.addBody( body );
-	var shape = new cp.BoxShape( body, 48, 108);
-	shape.setElasticity( 0.5 );
-	shape.setFriction( 0.5 );
-	this.space.addShape( shape );
-
-	var sprite = cc.PhysicsSprite.create(s_pathGrossini);
-	sprite.setBody( body );
-	return sprite;
-};
-
-ChipmunkSprite.prototype.onEnter = function () {
-
-	cc.base(this, 'onEnter');
-
-	this.scheduleUpdate();
-	for(var i=0; i<10; i++) {
-		this.addSprite( cp.v(winSize.width/2, winSize.height/2) );
-	}
-
-    // 'browser' can use touches or mouse.
-    // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-    var t = cc.config.platform;
-    if( t == 'browser' || t == 'mobile')  {
-        this.setTouchEnabled(true);
-    } else if( t == 'desktop' ) {
-        this.setMouseEnabled(true);
-    }
-};
-
-ChipmunkSprite.prototype.update = function( delta ) {
-	this.space.step( delta );
-};
-
-ChipmunkSprite.prototype.onMouseDown = function( event ) {
-	this.addSprite( event.getLocation() );
-};
-
-ChipmunkSprite.prototype.onTouchesEnded = function( touches, event ) {
-	var l = touches.length;
-	for( var i=0; i < l; i++) {
-		this.addSprite( touches[i].getLocation() );
-	}
-};
-
-
-var v = cp.v;
-var ctx;
-var GRABABLE_MASK_BIT = 1<<31;
-var NOT_GRABABLE_MASK = ~GRABABLE_MASK_BIT;
 
 var ChipmunkDemo = function() {
 
@@ -278,7 +121,6 @@ ChipmunkDemo.prototype.onMouseDown = function( event ) {
 };
 
 
-
 //
 ////------------------------------------------------------------------
 //
@@ -289,12 +131,10 @@ ChipmunkDemo.prototype.onMouseDown = function( event ) {
 var FLUID_DENSITY = 0.00014;
 var FLUID_DRAG = 2.0;
 
-var Buoyancy = function() {
+var Course = function() {
 	cc.base(this);
-	this.title = 'Chipmunk Demo';
-	this.subtitle = 'Buoyancy';
-        
-                    this.box;
+	
+        this.box;
 
 	var space = this.space;
 	space.iterations = 30;
@@ -305,112 +145,41 @@ var Buoyancy = function() {
 
 	var staticBody = space.staticBody;
 
-	// Create segments around the edge of the screen.
-	//var shape = space.addShape( new cp.SegmentShape(staticBody, cp.v(0,0), cp.v(0,480), 0.0));
-	//shape.setElasticity(1.0);
-	//shape.setFriction(1.0);
-	//shape.setLayers(NOT_GRABABLE_MASK);
+                //this is the water
+		//var bb = new cp.BB( 0, 0, 620, 100);
+		//var radius = 5.0;
 
-	//shape = space.addShape( new cp.SegmentShape(staticBody, cp.v(640,0), cp.v(640,480), 0.0));
-	//shape.setElasticity(1.0);
-	//shape.setFriction(1.0);
-	//shape.setLayers(NOT_GRABABLE_MASK);
-
-	//shape = space.addShape( new cp.SegmentShape(staticBody, cp.v(0,0), cp.v(640,0), 0.0));
-	//shape.setElasticity(1.0);
-	//shape.setFriction(1.0);
-	//shape.setLayers(NOT_GRABABLE_MASK);
-
-	//shape = space.addShape( new cp.SegmentShape(staticBody, cp.v(0,480), cp.v(640,480), 0.0));
-	//shape.setElasticity(1.0);
-	//shape.setFriction(1.0);
-	//shape.setLayers(NOT_GRABABLE_MASK);
-
-	// {
-		// Add the edges of the bucket
-                                            //this is the water
-		var bb = new cp.BB( 0, 0, 620, 100);
-		var radius = 5.0;
-
-		//shape = space.addShape( new cp.SegmentShape(staticBody, cp.v(bb.l, bb.b), cp.v(bb.l, bb.t), radius));
-		//shape.setElasticity(1.0);
-		//shape.setFriction(1.0);
-		//shape.setLayers(NOT_GRABABLE_MASK);
-
-		//shape = space.addShape( new cp.SegmentShape(staticBody, cp.v(bb.r, bb.b), cp.v(bb.r, bb.t), radius));
-		//shape.setElasticity(1.0);
-		//shape.setFriction(1.0);
-		//shape.setLayers(NOT_GRABABLE_MASK);
-
-		//shape = space.addShape( new cp.SegmentShape(staticBody, cp.v(bb.l, bb.b), cp.v(bb.r, bb.b), radius));
-		//shape.setElasticity(1.0);
-		//shape.setFriction(1.0);
-		//shape.setLayers(NOT_GRABABLE_MASK);
-
-		// Add the sensor for the water.
-		shape = space.addShape( new cp.BoxShape2(staticBody, bb) );
-		shape.setSensor(true);
-		shape.setCollisionType(1);
-	// }
-
-
-	// {
-		//var width = 200.0;
-		//var height = 50.0;
-		//var mass = 0.3*FLUID_DENSITY*width*height;
-		//var moment = cp.momentForBox(mass, width, height);
-
-		//body = space.addBody( new cp.Body(mass, moment));
-		//body.setPos( cp.v(270, 140));
-		//body.setVel( cp.v(0, -100));
-		//body.setAngVel( 1 );
-
-		//shape = space.addShape( new cp.BoxShape(body, width, height));
-		//shape.setFriction(0.8);
-	// }
-
-	// {
-		//width = 40.0;
-		//height = width*2;
-		
-		//moment =
-                                           
-                                           //this.box = new cp.Body(mass, moment) ;
-		//space.addBody( this.box );
-		//this.box.setPos();
-		//this.box.setVel();
-		//this.box.setAngVel(1);
+		//shape = space.addShape( new cp.BoxShape2(staticBody, bb) );
+		//shape.setSensor(true);
+		//shape.setCollisionType(1);
                 
-                                           for ( var i = 0; i < 5; i++)
-                                               {
-                            
-                                            var creation      = new Creation(  );
-                                            creation.mass                          = 0.3*FLUID_DENSITY* creation.width* creation.height;
-                                            creation.moment                   =  cp.momentForBox(  creation.mass, creation.width, creation.height);
-                                            creation.position                    = cp.v(120, 500); 
-                                            creation.velocity                    = cp.v(0, -100);
-                                            creation.angleVelocity         = 1;
-                                            creation.friction                       = 0.8;
-                                            
-                                            space.addBody( creation.addPhysics( cp )  );
-                                            
-                                            cc.log("does the content exist " + creation.content);
+                var radius = 5.0;
 
-		shape = space.addShape(new cp.BoxShape( creation.content,  creation.width, creation.height));
+                var creation                         = new Creation(  );
+                creation.mass                        = 0.3*FLUID_DENSITY* creation.width* creation.height;
+                creation.moment                      = cp.momentForCircle(10, 0, radius, cp.v(0,0));
+                creation.position                    = cp.v(120, 700); 
+                creation.velocity                    = cp.v(0, -100);
+                creation.angleVelocity               = 1;
+                creation.friction                    = 0.8;
+                                            
+                space.addBody( creation.addPhysics( cp )  );
+                                            
+                cc.log("does the content exist " + creation.content);
+
+		shape = space.addShape(new cp.CircleShape( creation.content,  creation.width, cp.v(0,0) ) );
+                
 		shape.setFriction( creation.friction );                       
-                                               
-    }
                 
-	// }
-
-	space.addCollisionHandler( 1, 0, null, this.waterPreSolve, null, null);
+                space.addCollisionHandler( 1, 0, null, this.waterPreSolve, null, null);
         
+                creation.content.setPos( cp.v(120, 700)  );
         
 };
 
-cc.inherits( Buoyancy, ChipmunkDemo );
+cc.inherits( Course, ChipmunkDemo );
 
-Buoyancy.prototype.onEnter = function () {
+Course.prototype.onEnter = function () {
 
       cc.base(this, 'onEnter');
       
@@ -428,7 +197,7 @@ Buoyancy.prototype.onEnter = function () {
     
 };
 
-Buoyancy.prototype.update = function(dt)
+Course.prototype.update = function(dt)
 {
 	var steps = 3;
 	dt /= steps;
@@ -438,7 +207,7 @@ Buoyancy.prototype.update = function(dt)
 };
 
 
-Buoyancy.prototype.onTouchesEnded = function( touches, event ) {
+Course.prototype.onTouchesEnded = function( touches, event ) {
 	//cc.log( "Touches End" +);
     var space = this.space;   
     var dt = space.getCurrentTimeStep();
@@ -450,7 +219,7 @@ Buoyancy.prototype.onTouchesEnded = function( touches, event ) {
 };
 
 
-Buoyancy.prototype.waterPreSolve = function(arb, space, ptr) {
+Course.prototype.waterPreSolve = function(arb, space, ptr) {
 
 	var shapes = arb.getShapes();
 	var water = shapes[0];
@@ -462,6 +231,9 @@ Buoyancy.prototype.waterPreSolve = function(arb, space, ptr) {
 	var level = water.getBB().t;
 
 	// Clip the polygon against the water level
+        
+        return;
+        
 	var count = poly.getNumVerts();
 
 	var clipped = [];
@@ -522,14 +294,13 @@ var ChipmunkTestScene = function() {
                     var parent = cc.base(this);
                     cc.log("do you have a parent " + parent );
                    sceneIdx = -1;
-                 // var layer = Buoyancy;
-                   //this.addChild(layer);//HOUSTON HERE IS WHERE WE HAVE THE PROBLEM
+                    //this.addChild(layer);//HOUSTON HERE IS WHERE WE HAVE THE PROBLEM
 };
 cc.inherits(ChipmunkTestScene,  Cosmos );
 
 ChipmunkTestScene.prototype.runThisTest = function () {
    // sceneIdx = -1;
-  var layer = new  Buoyancy();
+  var layer = new Course();
   this.addChild(layer);
   director.replaceScene(this);
 };
