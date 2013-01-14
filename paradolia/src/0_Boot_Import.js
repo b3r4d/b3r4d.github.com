@@ -5,14 +5,18 @@
 //Instead of the thoughts thinking me
 //I am me thinking the thoughts
 
-   var  logo                           = "assets/logo.png";
-   var  boob1                       = "assets/boob1.png";
-   var  s_pathGrossini      = "assets/grossini.png";
+    var logo                    = "assets/logo.png";
+    var boob1                   = "assets/boob1.png";
+    var s_pathGrossini          = "assets/grossini.png";
+    var ghost                   = "assets/ghost.png";
+    var ghost2                  = "assets/ghost2.png";
 
     var g_ressources = [
     //image
     {type:"image", src:logo             },
     {type:"image", src:boob1            },
+{type: "image", src: ghost},
+{type: "image", src: ghost2},
     {type:"image", src:s_pathGrossini   }
     //plist
 
@@ -30,7 +34,10 @@
     var files = [
    'Title.js',
     'Cosmos.js',
-   'Creation.js'
+   'Creation.js',
+    'Soul.js',
+    'CreationPhysics.js',
+   'Paradolia.js'
     ];
    
     //added this so canvas takes up the entire screen

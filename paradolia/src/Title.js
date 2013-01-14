@@ -22,12 +22,12 @@ var Title = cc.LayerGradient.extend({
         this._super();
         var pos = this._itemMenu.getPosition();
         this._itemMenu.setPosition(pos.x, Title.YOffset);
-        var scene = new  ChipmunkTestScene();
+        var scene = new  Paradolia(); //POPPED an ERROR HERE
         
         cc.log( scene );
         
         if (scene) {
-            scene.runThisTest();
+            scene.awake();
         }
     },
     onMenuCallback:function (sender) {
@@ -79,7 +79,7 @@ var testNames = [
     {
         title:"Level ONE",
         testScene:function () {
-            return new  ChipmunkTestScene();
+            return new Paradolia();
         }
     }
 ];
