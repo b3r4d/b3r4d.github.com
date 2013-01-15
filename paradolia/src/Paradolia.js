@@ -34,7 +34,7 @@ Course.prototype.setUp = function()
         this.setKeyboardEnabled(true);
         
 	this.remainder = 0;
-        this._debugNode.setVisible( true );
+        this._debugNode.setVisible( false );
         this.scheduleUpdate();
         
 	var space = this.space;
@@ -50,14 +50,16 @@ Course.prototype.setUp = function()
         soul.setPosition(cp.v( this.winSize.width * .5,  this.winSize.height * .5));
         this.addChild(soul);
 
-       // for (var i = 0; i < 0; i++)
-       // {
-       // var bounce = new CreationPhysics2(space);
-       // bounce.initBody(space); // Dont like ths line
-       // bounce.setPosition(cp.v(this.winSize.width * Math.random(), this.winSize.height * Math.random()));
-       // this.addChild(bounce);
-       // }
-        
+        for (var i = 0; i < 20; i++)
+        {
+        var bounce = new CreationPhysics2(space);
+        bounce.initBody(space); // Dont like ths line
+        bounce.setPosition(cp.v(this.winSize.width * Math.random(), this.winSize.height * Math.random()));
+        this.addChild(bounce);
+        }
+
+        this.cameraY = this.getPositionY();
+        this.cameraX = this.setPositionX();
 
 };
 
@@ -83,28 +85,32 @@ Course.prototype.update = function(dt)
     //var x = moveToPointer.x;
     //var y = moveToPointer.y;
     
-    var camX = this.soul.getPositionX() + this.winSize.width   * .5;
-    var camY = this.soul.getPositionY() + this.winSize.height  * .5;
+    var camX = this.soul.getPositionX();
+    cc.log("do you have a camX " + camX);
+    var camY = this.soul.getPositionY() - this.winSize.height  * .5;
+
+    camX *= -1;
+    camY *= -1;
 
     //this.runAction(cc.MoveTo.create( .05, cc.p( x, y )));
-    //TweenLite.to(this, .1, {cameraX: camX, cameraY: camY, ease: Elastic.easeOut});
+    TweenLite.to(this, 1, {cameraX: camX, cameraY: camY, ease: Elastic.easeOut});
 
-    //cc.log( "looking at these positions " + this.cameraY + " : " + this.cameraX );
-    //this.setPositionY( this.cameraY );
-    //this.setPositionX( this.cameraX );
+    cc.log( "looking at these positions " + this.cameraY + " : " + this.cameraX );
+    this.setPositionY( this.cameraY );
+    this.setPositionX( camX + this.winSize.width * .5 );
 
     if ( this.MW.KEYS[cc.KEY.w] || this.MW.KEYS[cc.KEY.up]) {
-        this.force(0, .1);
+        this.force(0, 5);
     }
     if ( this.MW.KEYS[cc.KEY.s] || this.MW.KEYS[cc.KEY.down]) {
-        this.force(0, -.1);
+        this.force(0, -5);
     }
     if (this.MW.KEYS[cc.KEY.a] || this.MW.KEYS[cc.KEY.left] ) {
-        this.force(-.1, 0);
+        this.force(-5, 0);
     }
 
     if ( this.MW.KEYS[cc.KEY.d] || this.MW.KEYS[cc.KEY.right]) {
-        this.force( .1, 0);
+        this.force( 5, 0);
     }
 
     //TweenLite.to( this, 1, {height:200, ease:Elastic.easeOut});

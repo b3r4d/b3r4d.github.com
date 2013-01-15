@@ -6,7 +6,7 @@
 //I am me thinking the thoughts
 
     var logo                    = "assets/logo.png";
-    var boob1                   = "assets/boob1.png";
+    var boob1                   = "assets/brownboobs.png";
     var s_pathGrossini          = "assets/grossini.png";
     var ghost                   = "assets/ghost.png";
     var ghost2                  = "assets/ghost2.png";
@@ -36,7 +36,7 @@
     'Cosmos.js',
    'Creation.js',
     'Soul.js',
-    'CreationPhysics.js',
+    'Soul2.js',
    'Paradolia.js'
     ];
    

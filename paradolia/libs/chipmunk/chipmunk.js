@@ -1520,12 +1520,11 @@
 
     Body.prototype.setAngleInternal = function(angle)
     {
-        assert(!isNaN(angle), "Internal Error: Attempting to set body's angle to NaN");
-        this.a = angle;//fmod(a, (cpFloat)M_PI*2.0f);
+        //assert(!isNaN(angle), "Internal Error: Attempting to set body's angle to NaN");
+        //this.a = angle;//fmod(a, (cpFloat)M_PI*2.0f);
 
-        //this.rot = vforangle(angle);
-        this.rot.x = Math.cos(angle);
-        this.rot.y = Math.sin(angle);
+        //this.rot.x = Math.cos(angle);
+        //this.rot.y = Math.sin(angle);
     };
 
     Body.prototype.setAngle = function(angle)

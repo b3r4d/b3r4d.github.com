@@ -47,7 +47,7 @@ var CreationPhysics = cc.PhysicsSprite.extend({
 
             this.setBody(this.content);
 
-            this.initWithFile( ghost2);
+            this.initWithFile( ghost );
 
 
             //this.initBody(position);

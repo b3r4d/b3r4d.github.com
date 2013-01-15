@@ -6,26 +6,30 @@ var CreationPhysics2 = cc.PhysicsSprite.extend({
         mass:null,
         width:null,
         height:null,
+        x: 0,
+        y: 0,
 
     ctor: function(fileName) {
         this._super();
+
     },
         
         initBody:function ( space) {
 
         cc.log("init body ");
-            this.height     = 40;
-            this.width      = 80;
+            this.height     = 500;
+            this.width      = 500;
 
             this.mass       = 0.3 * this.density * this.width * this.height;
             var shape;
 
-            this.content    = new cp.Body( this.mass, cp.momentForBox( this.mass, 30, 36));
-            shape = new cp.BoxShape(this.content, 30, 36);
+            //this.content    = new cp.Body( this.mass, cp.momentForBox( this.mass, 30, 96));
+            //shape = new cp.BoxShape(this.content, 30, 96);
 
-        //var radius = 20;
-        //this.content    = new cp.Body(10, cp.momentForCircle(10, 0, radius, cp.v(0, 0)));
-        //shape           = new cp.CircleShape( this.content, radius, cp.v(0, 0));
+        var radius = 60;
+        this.width = radius;
+        this.content    = new cp.Body(10, cp.momentForCircle(10, 0, radius, cp.v(0, 0)));
+        shape           = new cp.CircleShape( this.content, radius, cp.v(0, 0));
 
         space.addBody(this.content);
 
@@ -43,7 +47,10 @@ var CreationPhysics2 = cc.PhysicsSprite.extend({
 
             this.setBody(this.content);
 
-            this.initWithFile( ghost2);
+            this.initWithFile( boob1 );
+
+        this.setOpacity(50);
+
 
             //this.initBody(position);
 }
