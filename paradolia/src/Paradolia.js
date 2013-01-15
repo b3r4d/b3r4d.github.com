@@ -50,7 +50,7 @@ Course.prototype.setUp = function()
         soul.setPosition(cp.v( this.winSize.width * .5,  this.winSize.height * .5));
         this.addChild(soul);
 
-        for (var i = 0; i < 20; i++)
+        for (var i = 0; i < 100; i++)
         {
         var bounce = new CreationPhysics2(space);
         bounce.initBody(space); // Dont like ths line
