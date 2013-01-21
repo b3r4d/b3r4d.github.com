@@ -33,6 +33,8 @@ var PLATFORM_JSB = 1 << 0;
 var PLATFORM_HTML5 = 1 << 1;
 var PLATFORM_ALL = PLATFORM_JSB | PLATFORM_HTML5;
 
+var director = cc.Director.getInstance();
+var winSize = director.getWinSize();
 
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
@@ -52,13 +54,15 @@ var TestScene = cc.Scene.extend({
         menuItem.setPosition(winSize.width - 50, 25);
 
         this.addChild(menu, 1);
+
+        director.replaceScene(new SpriteTestScene);
     },
     onMainMenuCallback:function () {
         var scene = cc.Scene.create();
         var layer = new TestController();
         scene.addChild(layer);
         var transition = cc.TransitionProgressRadialCCW.create(0.5,scene);
-        director.replaceScene(transition);
+       
     },
 
     runThisTest:function () {

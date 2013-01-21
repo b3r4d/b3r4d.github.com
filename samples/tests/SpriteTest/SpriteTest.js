@@ -60,9 +60,13 @@ var SpriteTestDemo = cc.LayerGradient.extend({
         this._super();
         cc.associateWithNative( this, cc.LayerGradient );
         this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+
+        cc.log("alive ");
     },
     onEnter:function () {
         this._super();
+
+        
 
         var label = cc.LabelTTF.create(this._title, "Arial", 28);
         this.addChild(label, 1);
@@ -121,7 +125,8 @@ var Sprite1 = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
-
+        var director = cc.Director.getInstance();
+        var winSize = director.getWinSize();
         this.addNewSpriteWithCoords(cc.p(winSize.width / 2, winSize.height / 2));
 
         // 'browser' can use touches or mouse.
@@ -3788,6 +3793,8 @@ var SpriteTestScene = TestScene.extend({
         sceneIdx = -1;
         var layer = nextSpriteTest();
         this.addChild(layer);
+        var director = cc.Director.getInstance();
+        var winSize = director.getWinSize();
 
         director.replaceScene(this);
     }

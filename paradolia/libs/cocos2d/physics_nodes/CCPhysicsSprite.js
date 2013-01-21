@@ -146,7 +146,7 @@
         }
     };
     cc.PhysicsSprite = cc.Sprite.extend(chipmunkAPI);
-
+    
     /**
      * Create a PhysicsSprite with filename and rect
      * @constructs

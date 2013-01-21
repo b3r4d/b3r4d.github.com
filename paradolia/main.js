@@ -26,4 +26,9 @@ var cocos2dApp = cc.Application.extend({
     }
 });
 
+function trace(message)
+{
+    cc.log(message);
+}
+
 var app = new cocos2dApp(  Title );

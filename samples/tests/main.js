@@ -23,6 +23,9 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+
+
+
 var cocos2dApp = cc.Application.extend({
     config:document['ccConfig'],
     ctor:function (scene) {
@@ -39,23 +42,27 @@ var cocos2dApp = cc.Application.extend({
         };
         cc.Loader.getInstance().preload(g_ressources);
     },
-    applicationDidFinishLaunching:function () {
+        applicationDidFinishLaunching:function () {
         // initialize director
-        var director = cc.Director.getInstance();
+       // var director = cc.Director.getInstance();
+
+        cc.log("be a gutsy bastard ");
 
         // enable High Resource Mode(2x, such as iphone4) and maintains low resource on other devices.
 //     director->enableRetinaDisplay(true);
+       // var  winSize = director.getWinSize();
 
         // turn on display FPS
-        director.setDisplayStats(this.config['showFPS']);
+       // director.setDisplayStats(this.config['showFPS']);
 
         // set FPS. the default value is 1.0/60 if you don't call this
-        director.setAnimationInterval(1.0 / this.config['frameRate']);
+       // director.setAnimationInterval(1.0 / this.config['frameRate']);
 
         // create a scene. it's an autorelease object
-
-        // run
-       // director.runWithScene(new this.startScene());
+       // var testScene = new SpriteTestScene();
+       // director.replaceScene(testScene);
+       // testScene.runThisTest();
+        //director.
 
         return true;
     }

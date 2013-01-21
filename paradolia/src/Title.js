@@ -22,7 +22,10 @@ var Title = cc.LayerGradient.extend({
         this._super();
         var pos = this._itemMenu.getPosition();
         this._itemMenu.setPosition(pos.x, Title.YOffset);
-        var scene = new  Paradolia(); //POPPED an ERROR HERE
+
+        //real place
+        var scene = new SpriteTestScene();
+        //var scene = new  Paradolia(); //POPPED an ERROR HERE
         
         cc.log( scene );
         
@@ -77,9 +80,11 @@ var Title = cc.LayerGradient.extend({
 Title.YOffset = 0;
 var testNames = [
     {
+        //RIGHT HERE HERE HERE
         title:"Level ONE",
         testScene:function () {
-            return new Paradolia();
+            //return new Paradolia();
+            return new SpriteTestScene();
         }
     }
 ];

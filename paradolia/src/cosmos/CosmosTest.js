@@ -3,56 +3,51 @@ var Cosmos = cc.Class.extend({
      control:null,
      content:null,
 
-ctor: function( ) 
-{
+ctor: function( ) {
 this._super();
 Object.defineProperty( this, "creationList", { get:getCreationList(), set:setCreationList() });
+this.source = new CosmosCore;
+var parent = cc.base(this);
+cc.associateWithNative(this, parent);
+this.source.space = new cp.Space();
+
  },
     
 //GETTERS AND SETTERS BEGIN
-getCreationList:function()
-{
+getCreationList:function(){
         
 },
          
-setCreationList:function()
-{
+setCreationList:function(){
         
 },
 
 //PUBLIC FUNCTIONS
-load:function()
-{
+load:function(){
          
 },
 
-execute:function()
-{
+execute:function(){
          
 } ,
 
-awake:function()
-{
+awake:function(){
          
 },
 
-destroy:function()
- {
+destroy:function(){
      
  },
  
-appear:function()
-{
+appear:function(){
           
  } ,
 
-addAvatar:function ( ) 
-{
+addAvatar:function ( ){
 
 },
 
-removeAvatar:function()
-{
+removeAvatar:function(){
      
 }
 

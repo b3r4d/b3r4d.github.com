@@ -2,6 +2,7 @@
 var CreationPhysics2 = cc.PhysicsSprite.extend({
         content:null,
         collision:null,
+        collisionType: 1,
         density: 0.00014,
         mass:null,
         width:null,
@@ -11,6 +12,12 @@ var CreationPhysics2 = cc.PhysicsSprite.extend({
 
     ctor: function(fileName) {
         this._super();
+
+    },
+
+    collide: function(source) {
+
+        trace("do we have a source " + source);
 
     },
         
@@ -29,6 +36,7 @@ var CreationPhysics2 = cc.PhysicsSprite.extend({
         var radius = 60;
         this.width = radius;
         this.content    = new cp.Body(10, cp.momentForCircle(10, 0, radius, cp.v(0, 0)));
+        this.content.avatar = this;
         shape           = new cp.CircleShape( this.content, radius, cp.v(0, 0));
 
         space.addBody(this.content);
@@ -51,8 +59,8 @@ var CreationPhysics2 = cc.PhysicsSprite.extend({
 
         this.setOpacity(50);
 
-
-            //this.initBody(position);
+        shape.setCollisionType(this.collisionType);
+          //this.initBody(position);
 }
 });
         //CreationPhysics.create = function (position) {

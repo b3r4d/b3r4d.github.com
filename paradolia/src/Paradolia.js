@@ -50,7 +50,7 @@ Course.prototype.setUp = function()
         soul.setPosition(cp.v( this.winSize.width * .5,  this.winSize.height * .5));
         this.addChild(soul);
 
-        for (var i = 0; i < 100; i++)
+        for (var i = 0; i < 1; i++)
         {
         var bounce = new CreationPhysics2(space);
         bounce.initBody(space); // Dont like ths line
@@ -61,7 +61,44 @@ Course.prototype.setUp = function()
         this.cameraY = this.getPositionY();
         this.cameraX = this.setPositionX();
 
+    this.space.addCollisionHandler(1, 1,
+            this.collisionBegin.bind(this),
+            this.collisionPre.bind(this),
+            this.collisionPost.bind(this),
+            this.collisionSeparate.bind(this)
+            );
 };
+
+Course.prototype.collisionBegin = function(arbiter, space) {
+
+    cc.log('collision begin');
+    var shapes = arbiter.getShapes();
+    var collTypeA = shapes[0].collision_type;
+    var collTypeB = shapes[1].collision_type;
+
+    var shapeA = shapes[0];
+    var shapeB = shapes[1];
+
+    trace("Show me the $$$ " + shapes[0].body.avatar.collide(shapes[1].body.avatar) );
+
+    cc.log('Collision Type A:' + collTypeA);
+    cc.log('Collision Type B:' + collTypeB);
+    return true;
+};
+
+Course.prototype.collisionPre = function(arbiter, space) {
+    cc.log('collision pre' + arbiter);
+    return true;
+};
+
+Course.prototype.collisionPost = function(arbiter, space) {
+    cc.log('collision post ' + arbiter );
+};
+
+Course.prototype.collisionSeparate = function(arbiter, space) {
+    cc.log('collision separate ' + arbiter );
+};
+
 
 Course.prototype.onKeyDown = function(e) {
     this.MW.KEYS[e] = true;
@@ -86,7 +123,7 @@ Course.prototype.update = function(dt)
     //var y = moveToPointer.y;
     
     var camX = this.soul.getPositionX();
-    cc.log("do you have a camX " + camX);
+
     var camY = this.soul.getPositionY() - this.winSize.height  * .5;
 
     camX *= -1;
@@ -95,7 +132,7 @@ Course.prototype.update = function(dt)
     //this.runAction(cc.MoveTo.create( .05, cc.p( x, y )));
     TweenLite.to(this, 1, {cameraX: camX, cameraY: camY, ease: Elastic.easeOut});
 
-    cc.log( "looking at these positions " + this.cameraY + " : " + this.cameraX );
+    //cc.log( "looking at these positions " + this.cameraY + " : " + this.cameraX );
     this.setPositionY( this.cameraY );
     this.setPositionX( camX + this.winSize.width * .5 );
 
@@ -187,7 +224,7 @@ Course.prototype.onTouchesEnded = function( touches, event ) {
 
 var Paradolia = function() {
                     var parent = cc.base(this);
-                    cc.log("do you have a parent " + parent );
+                    //cc.log("do you have a parent " + parent );
                    sceneIdx = -1;
                     //this.addChild(layer);//HOUSTON HERE IS WHERE WE HAVE THE PROBLEM
 };
